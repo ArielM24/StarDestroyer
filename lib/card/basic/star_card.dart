@@ -29,6 +29,13 @@ class StarCard {
           ' turnsToDestroy ${effect.turnsToDestroy}';
     }
 
+    if (effect.createProbability < 100) {
+      str += ' createProbability: ${effect.createProbability}';
+    }
+
+    if (effect.destroyProbability < 100) {
+      str += ' destroyProbability: ${effect.destroyProbability}';
+    }
     return str + ']';
   }
 }

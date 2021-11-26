@@ -129,6 +129,7 @@ class StarSimpleGame {
         player2Stars -= effect.startsToDestroy;
       }
       if (effect.allEffectsActivated) {
+        print('removed $effect');
         toRemove.add(effect);
       }
     }
@@ -147,6 +148,7 @@ class StarSimpleGame {
         player1Stars = effect.startsToDestroy;
       }
       if (effect.allEffectsActivated) {
+        print('removed $effect');
         toRemove.add(effect);
       }
     }
@@ -158,7 +160,9 @@ class StarSimpleGame {
       player1Stars += effect.startsToCreate;
     } else if (effect.canActivateDestruction) {
       player2Stars -= effect.startsToDestroy;
-    } else if (effect.activationDelayed) {
+    }
+    if (effect.activationDelayed) {
+      print('Added $effect');
       player1Effects.add(effect);
     }
   }
@@ -168,8 +172,10 @@ class StarSimpleGame {
       player2Stars += effect.startsToCreate;
     } else if (effect.canActivateDestruction) {
       player1Stars -= effect.startsToDestroy;
-    } else if (effect.activationDelayed) {
+    }
+    if (effect.activationDelayed) {
       player2Effects.add(effect);
+      print('Added $effect');
     }
   }
 }

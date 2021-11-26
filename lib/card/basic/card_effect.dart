@@ -20,22 +20,28 @@ class CardEffect {
       this.createProbability = 100,
       this.destroyProbability = 100});
 
+  @override
+  String toString() {
+    return 'creates: $creates: $turnsToCreate,destroys: $destroys: $turnsToDestroy';
+  }
+
   bool get canActivateCreation => turnsToCreate == 0 && creates > 0;
   bool get canActivateDestruction => turnsToDestroy == 0 && destroys > 0;
   bool get activationDelayed => turnsToCreate > 0 || turnsToDestroy > 0;
   bool get allEffectsActivated => turnsToCreate == 0 && turnsToDestroy == 0;
 
   int get startsToCreate {
-    var r = Random().nextInt(100) + 1;
-    if (createProbability >= r) {
+    var r = Random().nextInt(100);
+    print('random to create $r');
+    if (createProbability > r) {
       return creates;
     }
     return 0;
   }
 
   int get startsToDestroy {
-    var r = Random().nextInt(100) + 1;
-    if (destroyProbability >= r) {
+    var r = Random().nextInt(100);
+    if (destroyProbability > r) {
       return destroys;
     }
     return 0;

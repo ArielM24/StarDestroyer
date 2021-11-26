@@ -26,4 +26,11 @@ List<StarCard> GenericDestructionCards = [
       description: 'destroy 2 star',
       effect: CardEffect(destroys: 2),
       type: CardType.destroyer),
+  StarCard(
+      name: 'super nova',
+      description: 'destroy 3 starts, create 1',
+      rarity: CardRarity.rare,
+      effect: CardEffect(
+          createProbability: 70, creates: 1, destroys: 3, turnsToCreate: 2),
+      type: CardType.both)
 ];
