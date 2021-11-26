@@ -1,3 +1,4 @@
+import 'package:star_destroyer/card/basic/card_effect.dart';
 import 'package:star_destroyer/card/basic/card_rarity.dart';
 import 'package:star_destroyer/card/basic/card_type.dart';
 
@@ -5,22 +6,29 @@ class StarCard {
   String name;
   String description;
   CardType type;
-  int destroys;
-  int creates;
-  int turnsToActivate;
   CardRarity rarity;
+  CardEffect effect;
 
-  StarCard(
-      {required this.name,
-      required this.description,
-      this.destroys = 0,
-      required this.type,
-      this.turnsToActivate = 0,
-      this.rarity = CardRarity.common,
-      this.creates = 0});
+  StarCard({
+    required this.name,
+    required this.description,
+    required this.effect,
+    required this.type,
+    this.rarity = CardRarity.common,
+  });
 
   @override
-  String toString() =>
-      '$name: $description\n$type\ndestroys: $creates\ncreates: $destroys'
-      '\nactivates in: $turnsToActivate turns\n$rarity';
+  String toString() {
+    var str = '$rarity[$name: $description';
+    if (type == CardType.creator) {
+      str += ' turnsToCreate: ${effect.turnsToCreate}';
+    } else if (type == CardType.destroyer) {
+      str += ' turnsToDestroy ${effect.turnsToDestroy}';
+    } else if (type == CardType.both) {
+      str += ' turnsToCreate: ${effect.turnsToCreate}'
+          ' turnsToDestroy ${effect.turnsToDestroy}';
+    }
+
+    return str + ']';
+  }
 }

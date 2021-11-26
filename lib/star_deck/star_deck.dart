@@ -37,26 +37,40 @@ class StarDeck {
   String toString() => '$name:\n${creationCards.length} creation cards'
       '\n${destructionCards.length} destruction cards';
 
-  bool get isEmpty => creationCards.isNotEmpty || destructionCards.isNotEmpty;
+  bool get isEmpty => creationCards.isEmpty && destructionCards.isEmpty;
 
   List<StarCard> draw(int n) {
     var cards = <StarCard>[];
-    n = n > 5 ? n : 6;
+    n = n > 0 ? n : 1;
     creationCards.shuffle();
     destructionCards.shuffle();
     var maxCards = creationCards.length + destructionCards.length;
-    n = n <= maxCards ? n : 6;
-    var creation = true;
+    n = n <= maxCards ? n : 1;
+    var creator = true;
     for (var i = 0; i < n; i++) {
-      StarCard card;
-      if (creation) {
-        card = creationCards.removeLast();
-      } else {
-        card = creationCards.removeLast();
+      var card = drawCard(creator);
+      if (card != null) {
+        print('drawed $card');
+        cards.add(card);
       }
-      cards.add(card);
-      creation = !creation;
+      creator = !creator;
     }
     return cards;
+  }
+
+  StarCard? drawCard(bool creator) {
+    if (creator) {
+      if (creationCards.isNotEmpty) {
+        return creationCards.removeLast();
+      } else if (destructionCards.isNotEmpty) {
+        return destructionCards.removeLast();
+      }
+    } else {
+      if (destructionCards.isNotEmpty) {
+        return destructionCards.removeLast();
+      } else if (creationCards.isNotEmpty) {
+        return creationCards.removeLast();
+      }
+    }
   }
 }
